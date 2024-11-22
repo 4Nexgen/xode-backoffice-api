@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  app:
+    image: xoderockson/xode-backoffice-api:latest
+    container_name: xode-backoffice-api
+    env_file:
+      - .env
+    ports:
+      - 3016:3000
+    volumes:
+      - /var/www/xode/xode-backoffice-api/.env:/usr/src/app/.env
