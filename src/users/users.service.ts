@@ -13,49 +13,78 @@ export class UsersService {
   constructor(
     @InjectModel(User.name)
     private readonly userModel: Model<User>,
-    private readonly jwtService: JwtService,
   ) {}
 
-  async create(signUpDto: CreateUserDto): Promise<{ token: string }> {
-    const { full_name, email, username, password } = signUpDto;
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await this.userModel.create({
-        full_name,
-        email,
-        username,
-        password: hashedPassword,
-    });
-
-    const token = this.jwtService.sign({ id: user._id });
-
-    return { token };
-  }
-
   async findAll(): Promise<User[]> {
-    return this.userModel.find().exec(); 
+    try {
+      return await this.userModel.find().exec();
+    } catch (error) {
+      throw new Error;
+    }
   }
 
   async findOne(id: string): Promise<User> {
-    const user = await this.userModel.findById(id).exec();
+    try {
+      const user = await this.userModel.findById(id).exec();
 
-    if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      return user;
+    } catch (error) {
+      throw new Error;
     }
+  }
 
-    return user;
+  async findByEmail(email: string): Promise<User | null> {
+    try {
+      const user = await this.userModel.findOne({ email }).exec();
+
+      return user;
+    } catch (error) {
+      throw new Error;
+    }
+  }
+
+  async create(signUpDto: CreateUserDto): Promise<User> {
+    try {
+      const { full_name, email, username, password } = signUpDto;
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const user = await this.userModel.create({
+          full_name,
+          email,
+          username,
+          password: hashedPassword,
+      });
+
+      return user;
+    } catch (error) {
+      throw new Error;
+    }
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    const updatedUser = await this.userModel
-      .findByIdAndUpdate(id, updateUserDto, { new: true })
-      .exec(); 
+    try {
+      const updatedUser = await this.userModel
+        .findByIdAndUpdate(id, updateUserDto, { new: true })
+        .exec(); 
 
-    if (!updatedUser) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      return updatedUser;
+    } catch (error) {
+      throw new Error;
     }
+  }
 
-    return updatedUser;
+  async updateDisableUser(id: string, disable: boolean): Promise<User | null> {
+    try {
+      const updatedUser = await this.userModel.findByIdAndUpdate(
+        id,
+        { disabled: disable },
+        { new: true },
+      );
+
+      return updatedUser;
+    } catch (error) {
+      throw new Error;
+    }
   }
 }
