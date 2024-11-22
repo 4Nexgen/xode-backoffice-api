@@ -18,7 +18,9 @@ export class AuthService {
       async login(loginDto: LoginDto): Promise<{ token: string }> {
         const { email, password } = loginDto;
     
-        const user = await this.userModel.findOne({ email });
+        const user = await this.userModel.findOne({ 
+          $or: [{ email: email }, { username: email }]
+         });
     
         if (!user) {
           throw new UnauthorizedException('Invalid email or password');

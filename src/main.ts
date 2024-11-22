@@ -6,8 +6,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const documentBuilder = new DocumentBuilder()
-    .setTitle('Admin Console')
-    .setDescription('Admin Console API')
+    .setTitle('Bounty')
+    .setDescription('Bounty API')
     .setVersion('1.0')
     .build();
   
