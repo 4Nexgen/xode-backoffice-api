@@ -12,4 +12,7 @@ export class CreateUserDto {
 
     @ApiProperty({type: String, description: 'This is a required property'})
     password: string;
+
+    @ApiProperty({ type: Boolean, description: 'User disabled status', default: false })
+    disabled: boolean = false;
 }

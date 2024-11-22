@@ -16,10 +16,10 @@ export class AuthService {
       ) {}
     
       async login(loginDto: LoginDto): Promise<{ token: string }> {
-        const { email, password } = loginDto;
+        const { username, password } = loginDto;
     
         const user = await this.userModel.findOne({ 
-          $or: [{ email: email }, { username: email }]
+          $or: [{ email: username }, { username: username }]
          });
     
         if (!user) {
