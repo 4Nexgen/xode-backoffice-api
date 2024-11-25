@@ -11,8 +11,8 @@ import {
 import { BountiesService } from './bounties.service';
 import { CreateBountyDto } from './dto/create-bounty.dto';
 import { UpdateBountyDto } from './dto/update-bounty.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 
 @Controller('bounties')
 export class BountiesController {
@@ -33,7 +33,7 @@ export class BountiesController {
   }
 
   @Post()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Create Bounty' })
   create(@Body() createBountyDto: CreateBountyDto) {
     const createBounty = this.bountiesService.create(createBountyDto);
@@ -41,7 +41,7 @@ export class BountiesController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Update Bounty' })
   update(@Param('id') id: string, @Body() updateBountyDto: UpdateBountyDto) {
     const updateBounty = this.bountiesService.update(id, updateBountyDto);
@@ -49,7 +49,7 @@ export class BountiesController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Delete Bounty' })
   delete(@Param('id') id: string) {
     const deleteBounty = this.bountiesService.delete(id);

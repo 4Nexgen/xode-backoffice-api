@@ -10,15 +10,15 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Get All Users' })
   async findAll() {
     const users = await this.usersService.findAll();
@@ -26,7 +26,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Get User' })
   async findOne(@Param('id') id: string) {
     const user = await this.usersService.findOne(id);
@@ -34,7 +34,7 @@ export class UsersController {
   }
 
   @Post()
-  // @UseGuards(AuthGuard())
+  // @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Create User' })
   async createUser(@Body() createUserDTO: CreateUserDto) {
     const createdUser = await this.usersService.create(createUserDTO);
@@ -42,7 +42,7 @@ export class UsersController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Update User' })
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     const updatedUser = await this.usersService.update(id, updateUserDto);
@@ -50,7 +50,7 @@ export class UsersController {
   }
 
   @Patch('disable/:id/:disable')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Disable User' })
   async disableUser(
     @Param('id') id: string,
