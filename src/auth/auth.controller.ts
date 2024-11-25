@@ -5,11 +5,13 @@ import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   @Post('/token')
-  @ApiOperation({ summary: 'Login For Access Token'})
+  @ApiOperation({ summary: 'Login For Access Token' })
   login(@Body() loginDto: LoginDto): Promise<{ token: string }> {
-    return this.authService.login(loginDto);
+    const user = this.authService.login(loginDto);
+
+    return user;
   }
 }
