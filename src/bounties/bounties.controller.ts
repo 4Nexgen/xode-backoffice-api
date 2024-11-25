@@ -1,39 +1,58 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { BountiesService } from './bounties.service';
 import { CreateBountyDto } from './dto/create-bounty.dto';
 import { UpdateBountyDto } from './dto/update-bounty.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('bounties')
-
 export class BountiesController {
   constructor(private readonly bountiesService: BountiesService) {}
 
-  @Post('/create_bounty')
-  @UseGuards(AuthGuard())
-  create(@Body() createBountyDto: CreateBountyDto) {
-    return this.bountiesService.create(createBountyDto);
-  }
-
   @Get()
-  async findAll() {
-    return this.bountiesService.findAll();
+  @ApiOperation({ summary: 'Get All Bounties' })
+  findAll() {
+    const bounties = this.bountiesService.findAll();
+    return bounties;
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.bountiesService.findOne(id);
+  @ApiOperation({ summary: 'Get Bounty' })
+  findOne(@Param('id') id: string) {
+    const bounty = this.bountiesService.findOne(id);
+    return bounty;
+  }
+
+  @Post()
+  @UseGuards(AuthGuard())
+  @ApiOperation({ summary: 'Create Bounty' })
+  create(@Body() createBountyDto: CreateBountyDto) {
+    const createBounty = this.bountiesService.create(createBountyDto);
+    return createBounty;
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard())
-  async update(@Param('id') id: string, @Body() updateBountyDto: UpdateBountyDto) {
-    return this.bountiesService.update(id, updateBountyDto);
+  @ApiOperation({ summary: 'Update Bounty' })
+  update(@Param('id') id: string, @Body() updateBountyDto: UpdateBountyDto) {
+    const updateBounty = this.bountiesService.update(id, updateBountyDto);
+    return updateBounty;
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard())
-  async delete(@Param('id') id: string) {
-    return this.bountiesService.delete(id);
+  @ApiOperation({ summary: 'Delete Bounty' })
+  delete(@Param('id') id: string) {
+    const deleteBounty = this.bountiesService.delete(id);
+    return deleteBounty;
   }
 }
