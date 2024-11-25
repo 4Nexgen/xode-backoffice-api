@@ -1,31 +1,33 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 @Schema({
-    timestamps: true
+  timestamps: true,
 })
+export class Bounty extends Document {
+  @Prop({ type: Date, required: true })
+  date: string;
 
-export class Bounty {
+  @Prop()
+  category: string;
 
-    @Prop({ type: Date, required: true })
-    date: string;
+  @Prop()
+  title: string;
 
-    @Prop()
-    category: string;
+  @Prop()
+  description: string;
 
-    @Prop()
-    title: string;
+  @Prop()
+  specification: string;
 
-    @Prop()
-    description: string;
+  @Prop()
+  bounty_price: number;
 
-    @Prop()
-    specification: string;
+  @Prop()
+  status: string;
 
-    @Prop()
-    bounty_price: number;
-
-    @Prop()
-    status: string;
+  @Prop()
+  github_issue_url: string;
 }
 
-export const BountySchema = SchemaFactory.createForClass(Bounty)
+export const BountySchema = SchemaFactory.createForClass(Bounty);

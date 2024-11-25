@@ -11,45 +11,70 @@ export class BountiesService {
     @InjectModel(Bounty.name)
     private readonly bountyModel: Model<Bounty>,
   ) {}
-  
-  async create(createBountyDto: CreateBountyDto): Promise<Bounty> {
-    const newBounty = new this.bountyModel(createBountyDto);
-    return newBounty.save();
-  }
 
   async findAll(): Promise<Bounty[]> {
-    return this.bountyModel.find().exec(); 
+    const bounties = await this.bountyModel.find().exec();
+    return bounties;
   }
 
   async findOne(id: string): Promise<Bounty> {
     const bounty = await this.bountyModel.findById(id).exec();
 
     if (!bounty) {
-      throw new NotFoundException(`Bounty with ID ${id} not found`);
+      throw new NotFoundException('Bounty not found');
     }
 
     return bounty;
   }
 
-  async update(id: string, updateBountyDto: UpdateBountyDto): Promise<Bounty> {
-    const updatedBounty = await this.bountyModel
-      .findByIdAndUpdate(id, updateBountyDto, { new: true })
-      .exec(); 
+  async create(createBountyDto: CreateBountyDto): Promise<Bounty> {
+    const {
+      date,
+      category,
+      title,
+      description,
+      specification,
+      bounty_price,
+      status,
+      github_issue_url,
+    } = createBountyDto;
+    const newBounty = await this.bountyModel.create({
+      date,
+      category,
+      title,
+      description,
+      specification,
+      bounty_price,
+      status,
+      github_issue_url,
+    });
 
-    if (!updatedBounty) {
-      throw new NotFoundException(`Bounty with ID ${id} not found`);
+    return newBounty;
+  }
+
+  async update(id: string, updateBountyDto: UpdateBountyDto): Promise<Bounty> {
+    const bounty = await this.bountyModel.findById(id).exec();
+
+    if (!bounty) {
+      throw new NotFoundException('Bounty not found');
     }
+
+    const updatedBounty = this.bountyModel
+      .findByIdAndUpdate(id, updateBountyDto, { new: true })
+      .exec();
 
     return updatedBounty;
   }
 
-  async delete(id: string): Promise<{ message: string }> {
-    const deletedBounty = await this.bountyModel.findByIdAndDelete(id).exec();
-    
-    if (!deletedBounty) {
-      throw new NotFoundException(`Bounty with ID ${id} not found`);
+  async delete(id: string): Promise<boolean> {
+    const bounty = await this.bountyModel.findById(id).exec();
+
+    if (!bounty) {
+      throw new NotFoundException('Bounty not found');
     }
 
-    return { message: `Bounty with ID ${id} has been deleted successfully` };
+    await this.bountyModel.findByIdAndDelete(id).exec();
+
+    return true;
   }
 }
