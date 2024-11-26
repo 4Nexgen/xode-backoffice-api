@@ -11,7 +11,6 @@ export class AuthController {
   @ApiOperation({ summary: 'Login For Access Token' })
   login(@Body() loginDto: LoginDto): Promise<{ token: string }> {
     const user = this.authService.login(loginDto);
-
     return user;
   }
 }
