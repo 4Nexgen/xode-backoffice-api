@@ -6,6 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { BountiesModule } from './bounties/bounties.module';
+import { CategoriesModule } from './categories/categories.module';
+import { StatusesModule } from './statuses/statuses.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { BountiesModule } from './bounties/bounties.module';
   AuthModule,
   UsersModule,
   BountiesModule,
+  CategoriesModule,
+  StatusesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
