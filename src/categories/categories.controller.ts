@@ -19,7 +19,7 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Create Category' })
   create(@Body() createCategoryDto: CreateCategoryDto) {
     const createCategory = this.categoriesService.create(createCategoryDto);
@@ -27,7 +27,7 @@ export class CategoriesController {
   }
 
   @Get()
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Get all Categories' })
   findAll() {
     const categories = this.categoriesService.findAll();
@@ -35,7 +35,7 @@ export class CategoriesController {
   }
 
   @Get(':id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Get Category' })
   findOne(@Param('id') id: string) {
     const category = this.categoriesService.findOne(id);
@@ -43,7 +43,7 @@ export class CategoriesController {
   }
 
   @Patch(':id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Update Category' })
   update(
     @Param('id') id: string,
@@ -54,7 +54,7 @@ export class CategoriesController {
   }
 
   @Delete(':id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Delete Category' })
   delete(@Param('id') id: string) {
     const deleteCategory = this.categoriesService.remove(id);
