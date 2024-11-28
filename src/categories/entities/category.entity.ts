@@ -2,6 +2,9 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema({
+  toJSON: {
+    versionKey: false,
+  },
   timestamps: true,
 })
 export class Category extends Document {
