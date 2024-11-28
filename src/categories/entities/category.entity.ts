@@ -12,6 +12,9 @@ export class Category extends Document {
   category: string;
 
   @Prop()
+  imagePath: string;
+
+  @Prop()
   type: string;
 }
 

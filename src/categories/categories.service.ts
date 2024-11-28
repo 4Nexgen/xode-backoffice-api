@@ -13,9 +13,10 @@ export class CategoriesService {
   ) {}
 
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
-    const { category, type } = createCategoryDto;
+    const { category, imagePath, type } = createCategoryDto;
     const newCategory = await this.categoryModel.create({
       category,
+      imagePath,
       type,
     });
 

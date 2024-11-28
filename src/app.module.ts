@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { BountiesModule } from './bounties/bounties.module';
 import { CategoriesModule } from './categories/categories.module';
 import { StatusesModule } from './statuses/statuses.module';
+import { BlogsModule } from './blogs/blogs.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { StatusesModule } from './statuses/statuses.module';
   BountiesModule,
   CategoriesModule,
   StatusesModule,
+  BlogsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

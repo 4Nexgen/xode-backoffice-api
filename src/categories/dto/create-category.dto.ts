@@ -5,5 +5,8 @@ export class CreateCategoryDto {
   category: string;
 
   @ApiProperty({ type: String, description: 'This is a required property' })
+  imagePath: string;
+
+  @ApiProperty({ type: String, description: 'This is a required property' })
   type: string;
 }
