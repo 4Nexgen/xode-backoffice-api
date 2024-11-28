@@ -15,7 +15,11 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.enableCors({
-    origin: ['https://bounties.xode.net', 'https://backoffice.xode.net'],
+    origin: [
+      'https://bounties.xode.net',
+      'https://backoffice.xode.net',
+      'http://localhost:3000',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Accept, Authorization',
     credentials: true,
