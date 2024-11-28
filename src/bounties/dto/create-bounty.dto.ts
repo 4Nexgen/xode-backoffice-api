@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateBountyDto {
-  @ApiProperty({ type: String, description: 'This is a required property' })
+  @ApiProperty({ type: Date, description: 'This is a required property' })
   date: string;
 
   @ApiProperty({ type: String, description: 'This is a required property' })
