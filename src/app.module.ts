@@ -9,6 +9,7 @@ import { BountiesModule } from './bounties/bounties.module';
 import { CategoriesModule } from './categories/categories.module';
 import { StatusesModule } from './statuses/statuses.module';
 import { BlogsModule } from './blogs/blogs.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { BlogsModule } from './blogs/blogs.module';
   CategoriesModule,
   StatusesModule,
   BlogsModule,
+  StorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
