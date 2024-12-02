@@ -48,7 +48,7 @@ export class StorageController {
     @UploadedFile() file: Express.Multer.File,
     @Request() request: ExpressRequest,
   ) {
-    const baseUrl = `${request.protocol}://${request.get('host')}`;
+    const baseUrl = `https://${request.get('host')}`;
 
     const uploadFile = await this.storageService.uploadFile(file);
 
