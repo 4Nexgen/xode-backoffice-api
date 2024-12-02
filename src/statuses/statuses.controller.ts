@@ -18,14 +18,6 @@ import { AuthGuard } from 'src/auth/guard/auth.guard';
 export class StatusesController {
   constructor(private readonly statusesService: StatusesService) {}
 
-  @Post()
-  @UseGuards(AuthGuard)
-  @ApiOperation({ summary: 'Create Status' })
-  create(@Body() createStatusDto: CreateStatusDto) {
-    const createStatus = this.statusesService.create(createStatusDto);
-    return createStatus;
-  }
-
   @Get()
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Get all Statuses' })
@@ -40,6 +32,14 @@ export class StatusesController {
   findOne(@Param('id') id: string) {
     const status = this.statusesService.findOne(id);
     return status;
+  }
+
+  @Post()
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: 'Create Status' })
+  create(@Body() createStatusDto: CreateStatusDto) {
+    const createStatus = this.statusesService.create(createStatusDto);
+    return createStatus;
   }
 
   @Patch(':id')

@@ -10,23 +10,25 @@ import { CategoriesModule } from './categories/categories.module';
 import { StatusesModule } from './statuses/statuses.module';
 import { BlogsModule } from './blogs/blogs.module';
 import { StorageModule } from './storage/storage.module';
+import { BlogTranslationsModule } from './blog_translations/blog_translations.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-    envFilePath: '.env',
-    isGlobal: true,
-  }),
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
 
-  MongooseModule.forRoot(process.env.DB_URI, { dbName: process.env.DB_NAME }),
+    MongooseModule.forRoot(process.env.DB_URI, { dbName: process.env.DB_NAME }),
 
-  AuthModule,
-  UsersModule,
-  BountiesModule,
-  CategoriesModule,
-  StatusesModule,
-  BlogsModule,
-  StorageModule,
+    AuthModule,
+    UsersModule,
+    BountiesModule,
+    CategoriesModule,
+    StatusesModule,
+    BlogsModule,
+    BlogTranslationsModule,
+    StorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

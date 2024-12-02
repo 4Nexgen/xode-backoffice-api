@@ -12,16 +12,6 @@ export class StatusesService {
     private readonly statusModel: Model<Status>,
   ) {}
 
-  async create(createStatusDto: CreateStatusDto): Promise<Status> {
-    const { status, type } = createStatusDto;
-    const newStatus = await this.statusModel.create({
-      status,
-      type,
-    });
-
-    return newStatus;
-  }
-
   async findAll(): Promise<Status[]> {
     const statuses = await this.statusModel.find().exec();
     return statuses;
@@ -35,6 +25,16 @@ export class StatusesService {
     }
 
     return status;
+  }
+
+  async create(createStatusDto: CreateStatusDto): Promise<Status> {
+    const { status, type } = createStatusDto;
+    const newStatus = await this.statusModel.create({
+      status,
+      type,
+    });
+
+    return newStatus;
   }
 
   async update(id: string, updateStatusDto: UpdateStatusDto): Promise<Status> {

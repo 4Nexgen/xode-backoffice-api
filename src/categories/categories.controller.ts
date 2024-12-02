@@ -18,14 +18,6 @@ import { ApiOperation } from '@nestjs/swagger';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @Post()
-  @UseGuards(AuthGuard)
-  @ApiOperation({ summary: 'Create Category' })
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    const createCategory = this.categoriesService.create(createCategoryDto);
-    return createCategory;
-  }
-
   @Get()
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Get all Categories' })
@@ -40,6 +32,14 @@ export class CategoriesController {
   findOne(@Param('id') id: string) {
     const category = this.categoriesService.findOne(id);
     return category;
+  }
+
+  @Post()
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: 'Create Category' })
+  create(@Body() createCategoryDto: CreateCategoryDto) {
+    const createCategory = this.categoriesService.create(createCategoryDto);
+    return createCategory;
   }
 
   @Patch(':id')
