@@ -29,6 +29,22 @@ export class StorageService {
     default: 'application/octet-stream',
   };
 
+  getFile(fileName: string): { filePath: string; mimeType: string } {
+    const fileExtension = path.extname(fileName).toLowerCase();
+    const folderName =
+      this.fileTypeMap[fileExtension] || this.fileTypeMap['default'];
+    const filePath = path.join(this.STORAGE_PATH, folderName, fileName);
+
+    if (!fs.existsSync(filePath)) {
+      throw new NotFoundException(`File ${fileName} not found`);
+    }
+
+    const mimeType =
+      this.mediaTypesMap[fileExtension] || this.mediaTypesMap['default'];
+
+    return { filePath, mimeType };
+  }
+
   async uploadFile(
     file: Express.Multer.File,
   ): Promise<{ fileName: string; fileUrl: string; fileLocalPath: string }> {
@@ -57,21 +73,5 @@ export class StorageService {
       fileUrl: fileUrl,
       fileLocalPath: filePath,
     };
-  }
-
-  getFile(fileName: string): { filePath: string; mimeType: string } {
-    const fileExtension = path.extname(fileName).toLowerCase();
-    const folderName =
-      this.fileTypeMap[fileExtension] || this.fileTypeMap['default'];
-    const filePath = path.join(this.STORAGE_PATH, folderName, fileName);
-
-    if (!fs.existsSync(filePath)) {
-      throw new NotFoundException(`File ${fileName} not found`);
-    }
-
-    const mimeType =
-      this.mediaTypesMap[fileExtension] || this.mediaTypesMap['default'];
-
-    return { filePath, mimeType };
   }
 }

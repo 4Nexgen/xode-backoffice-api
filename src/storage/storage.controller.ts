@@ -19,6 +19,17 @@ import { Request as ExpressRequest } from 'express';
 export class StorageController {
   constructor(private readonly storageService: StorageService) {}
 
+  @Get(':fileName')
+  getFile(@Param('fileName') fileName: string, @Res() res: Response) {
+    const { filePath, mimeType } = this.storageService.getFile(fileName);
+
+    res.setHeader('Content-Type', mimeType);
+    res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
+
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
+  }
+
   @Post('uploadFile')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -48,16 +59,5 @@ export class StorageController {
       fileUrl: fileUrl,
       fileLocalPath: uploadFile.fileLocalPath,
     };
-  }
-
-  @Get(':fileName')
-  getFile(@Param('fileName') fileName: string, @Res() res: Response) {
-    const { filePath, mimeType } = this.storageService.getFile(fileName);
-
-    res.setHeader('Content-Type', mimeType);
-    res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
-
-    const fileStream = fs.createReadStream(filePath);
-    fileStream.pipe(res);
   }
 }

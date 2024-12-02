@@ -12,17 +12,6 @@ export class CategoriesService {
     private readonly categoryModel: Model<Category>,
   ) {}
 
-  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
-    const { category, imagePath, type } = createCategoryDto;
-    const newCategory = await this.categoryModel.create({
-      category,
-      imagePath,
-      type,
-    });
-
-    return newCategory;
-  }
-
   async findAll(): Promise<Category[]> {
     const categories = await this.categoryModel.find().exec();
     return categories;
@@ -36,6 +25,17 @@ export class CategoriesService {
     }
 
     return category;
+  }
+
+  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
+    const { category, imagePath, type } = createCategoryDto;
+    const newCategory = await this.categoryModel.create({
+      category,
+      imagePath,
+      type,
+    });
+
+    return newCategory;
   }
 
   async update(
