@@ -17,6 +17,7 @@ export class StorageService {
     '.jpg': 'images',
     '.jpeg': 'images',
     '.png': 'images',
+    '.svg': 'images',
     '.pdf': 'documents',
     default: 'others',
   };
@@ -26,6 +27,7 @@ export class StorageService {
     '.jpeg': 'image/jpeg',
     '.png': 'image/png',
     '.pdf': 'application/pdf',
+    '.svg': 'image/svg+xml',
     default: 'application/octet-stream',
   };
 
