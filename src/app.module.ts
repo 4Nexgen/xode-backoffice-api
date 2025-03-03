@@ -11,6 +11,7 @@ import { StatusesModule } from './statuses/statuses.module';
 import { BlogsModule } from './blogs/blogs.module';
 import { StorageModule } from './storage/storage.module';
 import { BlogTranslationsModule } from './blog_translations/blog_translations.module';
+import { NewsArticleModule } from './news_article/news_article.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { BlogTranslationsModule } from './blog_translations/blog_translations.mo
     BlogsModule,
     BlogTranslationsModule,
     StorageModule,
+    NewsArticleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
