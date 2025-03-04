@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
   InternalServerErrorException,
+  UseGuards,
 } from '@nestjs/common';
 import { NewsArticleService } from './news_article.service';
 import { CreateNewsArticleDto } from './dto/create-news_article.dto';
 import { UpdateNewsArticleDto } from './dto/update-news_article.dto';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('news-article')
@@ -18,6 +20,7 @@ export class NewsArticleController {
   constructor(private readonly newsArticleService: NewsArticleService) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Create News Article' })
   create(@Body() createNewsArticleDto: CreateNewsArticleDto) {
     try {
@@ -47,6 +50,7 @@ export class NewsArticleController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Get News Article' })
   findOne(@Param('id') id: string) {
     try {
@@ -60,6 +64,7 @@ export class NewsArticleController {
     }
   }
   @Patch(':id')
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Update News Article' })
   update(
     @Param('id') id: string,
@@ -80,6 +85,7 @@ export class NewsArticleController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Delete Blog' })
   delete(@Param('id') id: string) {
     try {
