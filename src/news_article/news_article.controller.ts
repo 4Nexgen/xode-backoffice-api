@@ -20,7 +20,6 @@ export class NewsArticleController {
   constructor(private readonly newsArticleService: NewsArticleService) {}
 
   @Post()
-  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Create News Article' })
   create(@Body() createNewsArticleDto: CreateNewsArticleDto) {
     try {
